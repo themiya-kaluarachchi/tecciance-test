@@ -1,11 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.request.CreateCategoryRequest;
-import com.example.demo.dto.response.CategoryResponse;
 import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
-import com.example.demo.dto.request.UpdateCategoryRequest;
 import com.example.demo.service.CategoryService;
+import com.example.demo.dto.request.CreateCategoryRequest;
+import com.example.demo.dto.request.UpdateCategoryRequest;
+import com.example.demo.dto.response.CategoryResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,11 +42,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         category.setUserId(1L);
 
-        category.setName(request.name());
-        category.setColor(request.color());
-        category.setMonthlyBudget(
-                request.monthlyBudget()
-        );
+        category.setName(request.getName());
+        category.setColor(request.getColor());
+        category.setMonthlyBudget(request.getMonthlyBudget());
 
         categoryRepository.save(category);
     }
@@ -59,12 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = new Category();
 
-        category.setName(request.name());
+        category.setName(request.getName());
 
-        category.setColor(request.color());
+        category.setColor(request.getColor());
 
         category.setMonthlyBudget(
-                request.monthlyBudget()
+                request.getMonthlyBudget()
         );
 
         categoryRepository.update(id, category);

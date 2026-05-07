@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CategoryRepositoryJdbcImpl implements CategoryRepository {
+public class CategoryRepositoryJdbcImpl
+        implements CategoryRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -23,12 +24,11 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
     @Override
     public List<Category> findAll() {
 
-        String sql = """
-                SELECT *
-                FROM categories
-                WHERE deleted_at IS NULL
-                ORDER BY id DESC
-                """;
+        String sql =
+                "SELECT * " +
+                        "FROM categories " +
+                        "WHERE deleted_at IS NULL " +
+                        "ORDER BY id DESC";
 
         return jdbcTemplate.query(
                 sql,
@@ -36,31 +36,41 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
         );
     }
 
-
     @Override
     public void save(Category category) {
 
-        String sql = """
-                INSERT INTO categories(
-                    user_id,
-                    name,
-                    color,
-                    monthly_budget
-                )
-                VALUES(
-                    :userId,
-                    :name,
-                    :color,
-                    :monthlyBudget
-                )
-                """;
+        String sql =
+                "INSERT INTO categories(" +
+                        "user_id, " +
+                        "name, " +
+                        "color, " +
+                        "monthly_budget" +
+                        ") " +
+                        "VALUES(" +
+                        ":userId, " +
+                        ":name, " +
+                        ":color, " +
+                        ":monthlyBudget" +
+                        ")";
 
         MapSqlParameterSource params =
                 new MapSqlParameterSource();
 
-        params.addValue("userId", category.getUserId());
-        params.addValue("name", category.getName());
-        params.addValue("color", category.getColor());
+        params.addValue(
+                "userId",
+                category.getUserId()
+        );
+
+        params.addValue(
+                "name",
+                category.getName()
+        );
+
+        params.addValue(
+                "color",
+                category.getColor()
+        );
+
         params.addValue(
                 "monthlyBudget",
                 category.getMonthlyBudget()
@@ -70,24 +80,34 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
     }
 
     @Override
-    public void update(Long id, Category category) {
+    public void update(
+            Long id,
+            Category category
+    ) {
 
-        String sql = """
-            UPDATE categories
-            SET
-                name = :name,
-                color = :color,
-                monthly_budget = :monthlyBudget,
-                updated_at = NOW()
-            WHERE id = :id
-            """;
+        String sql =
+                "UPDATE categories " +
+                        "SET " +
+                        "name = :name, " +
+                        "color = :color, " +
+                        "monthly_budget = :monthlyBudget, " +
+                        "updated_at = NOW() " +
+                        "WHERE id = :id";
 
         MapSqlParameterSource params =
                 new MapSqlParameterSource();
 
         params.addValue("id", id);
-        params.addValue("name", category.getName());
-        params.addValue("color", category.getColor());
+
+        params.addValue(
+                "name",
+                category.getName()
+        );
+
+        params.addValue(
+                "color",
+                category.getColor()
+        );
 
         params.addValue(
                 "monthlyBudget",
@@ -100,11 +120,10 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
     @Override
     public void softDelete(Long id) {
 
-        String sql = """
-            UPDATE categories
-            SET deleted_at = NOW()
-            WHERE id = :id
-            """;
+        String sql =
+                "UPDATE categories " +
+                        "SET deleted_at = NOW() " +
+                        "WHERE id = :id";
 
         MapSqlParameterSource params =
                 new MapSqlParameterSource();

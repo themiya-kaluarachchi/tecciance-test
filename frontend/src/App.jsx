@@ -1,11 +1,8 @@
-import './App.css'
-import CategoriesPage from './pages/CategoriesPage'
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
 
-  return (
-    <CategoriesPage />
-  )
+    return <AppRoutes />;
 }
 
-export default App
+export default App;

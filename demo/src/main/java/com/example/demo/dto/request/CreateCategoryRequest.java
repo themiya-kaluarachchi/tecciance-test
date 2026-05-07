@@ -1,17 +1,34 @@
 package com.example.demo.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-
 import java.math.BigDecimal;
 
-public record CreateCategoryRequest (
+public class CreateCategoryRequest {
 
-    @NotBlank(message = "Name is required")
-    String name,
-    String color,
-    BigDecimal monthlyBudget
+    private String name;
+    private String color;
+    private BigDecimal monthlyBudget;
 
+    public String getName() {
+        return name;
+    }
 
-) {
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public BigDecimal getMonthlyBudget() {
+        return monthlyBudget;
+    }
+
+    public void setMonthlyBudget(BigDecimal monthlyBudget) {
+        this.monthlyBudget = monthlyBudget;
+    }
 }
