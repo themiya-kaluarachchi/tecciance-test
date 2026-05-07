@@ -8,7 +8,9 @@ public interface CategoryRepository {
 
     List<Category> findAll();
 
-    List<Category> finAll();
-
     void save(Category category);
+
+    void update(Long id, Category category);
+
+    void softDelete(Long id);
 }

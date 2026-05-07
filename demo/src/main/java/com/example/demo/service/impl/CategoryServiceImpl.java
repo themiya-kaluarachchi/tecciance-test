@@ -4,6 +4,7 @@ import com.example.demo.dto.request.CreateCategoryRequest;
 import com.example.demo.dto.response.CategoryResponse;
 import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.dto.request.UpdateCategoryRequest;
 import com.example.demo.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,30 @@ public class CategoryServiceImpl implements CategoryService {
         );
 
         categoryRepository.save(category);
+    }
+
+    @Override
+    public void update(
+            Long id,
+            UpdateCategoryRequest request
+    ) {
+
+        Category category = new Category();
+
+        category.setName(request.name());
+
+        category.setColor(request.color());
+
+        category.setMonthlyBudget(
+                request.monthlyBudget()
+        );
+
+        categoryRepository.update(id, category);
+    }
+
+    @Override
+    public void delete(Long id) {
+
+        categoryRepository.softDelete(id);
     }
 }

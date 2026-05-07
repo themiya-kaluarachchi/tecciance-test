@@ -36,10 +36,6 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
         );
     }
 
-    @Override
-    public List<Category> finAll() {
-        return List.of();
-    }
 
     @Override
     public void save(Category category) {
@@ -69,6 +65,51 @@ public class CategoryRepositoryJdbcImpl implements CategoryRepository {
                 "monthlyBudget",
                 category.getMonthlyBudget()
         );
+
+        jdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public void update(Long id, Category category) {
+
+        String sql = """
+            UPDATE categories
+            SET
+                name = :name,
+                color = :color,
+                monthly_budget = :monthlyBudget,
+                updated_at = NOW()
+            WHERE id = :id
+            """;
+
+        MapSqlParameterSource params =
+                new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("name", category.getName());
+        params.addValue("color", category.getColor());
+
+        params.addValue(
+                "monthlyBudget",
+                category.getMonthlyBudget()
+        );
+
+        jdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public void softDelete(Long id) {
+
+        String sql = """
+            UPDATE categories
+            SET deleted_at = NOW()
+            WHERE id = :id
+            """;
+
+        MapSqlParameterSource params =
+                new MapSqlParameterSource();
+
+        params.addValue("id", id);
 
         jdbcTemplate.update(sql, params);
     }
